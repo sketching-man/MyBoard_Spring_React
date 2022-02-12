@@ -27,7 +27,8 @@
 * PostgreDB as database
 * Service on cloud(AWS? GCP?)...? maybe?
 
-## URL 구성 - 추가 고민이 필요함. API용 url과 front용 url이 구분되어야 할 것으로 보임.
+## URL 구성
+### 공개 url
 * /article: 게시판 목록과 관련된 정보를 의미함.
     * GET: 아무 쿼리가 없을 때, 시간 내림차순으로 최신 20개의 게시글을 표시함.\
     page 쿼리가 있을 때, 시간 내림차순으로 20*(n-1) 번째의 게시글을 표시함.\
@@ -36,12 +37,32 @@
     anywhere 쿼리가 있을 때, 제목 또는 내용에 해당 쿼리 글귀를 포함하는 20*(n-1) 번째의 게시글을 표시함.
 * /article/{article_no}: 게시글과 관련된 정보를 의미함.
     * GET: 해당 번호의 게시글을 열람함.
-    * DELETE: 해당 번호의 게시글을 삭제함.
-    * PUT: 해당 번호의 게시글을 갱신함. Request body에 글 제목 글 내용이 포함.
-* /article/edit: 게시글과 관련된 정보를 의미함.
-    * POST: 새로운 게시글을 게시함. Request body에 글 제목 글 내용이 포함.
-    * PUT: 
+* /article/{article_no}/edit: 게시글 수정과 관련된 정보를 의미함.
+    * GET: 해당 번호의 게시글 수정 페이지를 열람함. 권한 없을 시 열람 불가. (작성자)
+* /article/new: 게시글과 관련된 정보를 의미함.
+    * GET: 게시글 작성 페이지를 열람함.
 * /member: 회원 목록과 관련된 정보를 의미함.
-    * TBD!
+    * GET: 시스템에 등록 된 회원 목록 페이지를 열람함. 권한 없을 시 열람 불가. (관리자)
 * /member/{member_no}: 회원과 관련된 정보를 의미함.
-    * TBD!
+    * GET: 해당 회원 번호의 회원 정보 페이지를 열람함. 권한 없을 시 열람 불가. (관리자, 회원)
+* /member/{member_no}/edit: 회원 정보 수정과 관련된 정보를 의미함.
+    * GET: 해당 회원 번호의 회원 정보 수정 페이지를 열람함. 권한 없을 시 열람 불가. (관리자, 회원)
+* /member/new: 회원 가입과 관련된 정보를 의미함.
+    * GET: 회원 가입 페이지를 열람함.
+### API url
+* /api/article: 게시글과 관련된 정보를 의미함.
+    * POST: 새로운 게시글을 게시함. Request body에 글 제목 글 내용이 포함.
+* /api/article/{article_no}: article_no ID의 게시글과 관련된 정보를 의미함.
+    * GET: 해당 번호의 게시글을 열람함.
+    * PUT: 해당 번호의 게시글을 갱신함. Request body에 글 제목 글 내용이 포함.
+    * DELETE: 해당 번호의 게시글을 삭제함.
+* /api/member: 회원과 관련된 정보를 의미함.
+    * POST: 새로운 회원 정보를 게시함. Request body에 글 제목 글 내용이 포함.
+* /api/member/{member_no}: member_no ID의 회원과 관련된 정보를 의미함.
+    * GET: 해당 번호의 회원 정보를 열람함.
+    * PUT: 해당 번호의 회원 정보를 갱신함. Request body에 글 제목 글 내용이 포함.
+    * DELETE: 해당 번호의 회원 정보를 삭제함.
+
+## 생각이 필요한 부분
+* Request body에 회원 정보가 넘어갈 때, 비밀번호는 어떻게 암호화할까?
+* API url은 외부 공개되지 않도록 숨겨야 할까? 만약 그렇다면, 어떻게 숨겨야 할까?
