@@ -10,11 +10,11 @@ public interface ArticleRepository {
 
     Article save(Article article);
     Optional<Article> findById(Long id);
-    Optional<Article> findByTitle(String keyword);
-    Optional<Article> findByBody(String keyword);
-    Optional<Article> findByTitleOrBody(String keyword);
-    Optional<Article> findByWriter(String writer);
     List<Article> findAll();
     List<Article> findByPage(Integer pageNo);
+    List<Article> findByTitle(String keyword);
+    List<Article> findByBody(String keyword);
+    List<Article> findByTitleOrBody(String keyword);
+    List<Article> findByWriter(String writerName);
 
 }

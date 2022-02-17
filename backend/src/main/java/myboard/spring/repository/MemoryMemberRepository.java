@@ -45,9 +45,13 @@ public class MemoryMemberRepository implements MemberRepository {
 
     @Override
     public List<Member> findByGrade(Grade grade) {
-        Stream<Member> stream = memoryStore.values().stream()
-                .filter(member -> member.getGrade().equals(grade));
-        return stream.collect(Collectors.toList());
+        return memoryStore.values().stream()
+                .filter(member -> member.getGrade().equals(grade))
+                .collect(Collectors.toList());
+    }
+
+    public void clear() {
+        memoryStore.clear();
     }
 
 }
