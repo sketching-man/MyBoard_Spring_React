@@ -52,13 +52,13 @@
 ### API url
 * /api/article: 게시글과 관련된 정보를 의미함.
     * POST: 새로운 게시글을 게시함. Request body에 글 제목 글 내용이 포함.
-* /api/article/{article_no}: article_no ID의 게시글과 관련된 정보를 의미함.
+* /api/article?id={article_no}: article_no ID의 게시글과 관련된 정보를 의미함.
     * GET: 해당 번호의 게시글을 열람함.
     * PUT: 해당 번호의 게시글을 갱신함. Request body에 글 제목 글 내용이 포함.
     * DELETE: 해당 번호의 게시글을 삭제함.
 * /api/member: 회원과 관련된 정보를 의미함.
     * POST: 새로운 회원 정보를 게시함. Request body에 글 제목 글 내용이 포함.
-* /api/member/{member_no}: member_no ID의 회원과 관련된 정보를 의미함.
+* /api/member?id={member_no}: member_no ID의 회원과 관련된 정보를 의미함.
     * GET: 해당 번호의 회원 정보를 열람함.
     * PUT: 해당 번호의 회원 정보를 갱신함. Request body에 글 제목 글 내용이 포함.
     * DELETE: 해당 번호의 회원 정보를 삭제함.
