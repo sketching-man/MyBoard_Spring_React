@@ -9,10 +9,12 @@ import java.util.Optional;
 public interface MemberRepository {
 
     Member save(Member member);
+    boolean existsById(Long id);
     Optional<Member> findById(Long id);
     Optional<Member> findByUserName(String userName);
     List<Member> findAll();
     List<Member> findByPage(Integer pageNo);
     List<Member> findByGrade(Grade grade);
+    void deleteById(Long id);
 
 }

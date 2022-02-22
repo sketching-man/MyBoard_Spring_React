@@ -16,9 +16,15 @@ public class MemoryMemberRepository implements MemberRepository {
 
     @Override
     public Member save(Member member) {
-        member.setId(++memoryIndex);
+        if (!memoryStore.containsKey(member.getId()))
+            member.setId(++memoryIndex);
         memoryStore.put(member.getId(), member);
         return member;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return memoryStore.containsKey(id);
     }
 
     @Override
@@ -48,6 +54,11 @@ public class MemoryMemberRepository implements MemberRepository {
         return memoryStore.values().stream()
                 .filter(member -> member.getGrade().equals(grade))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        memoryStore.remove(id);
     }
 
     public void clear() {
