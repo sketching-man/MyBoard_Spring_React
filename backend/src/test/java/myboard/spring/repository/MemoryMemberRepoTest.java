@@ -35,6 +35,19 @@ public class MemoryMemberRepoTest {
     }
 
     @Test
+    public void existById() {
+        // given
+        Member member = new Member("jaemin", "pw", Grade.User);
+
+        // when
+        Member savedMember = memberRepository.save(member);
+
+        // then
+        Boolean existOrNot = memberRepository.existsById(savedMember.getId());
+        Assertions.assertThat(existOrNot).isTrue();
+    }
+
+    @Test
     public void findByUsername() {
         // given
         Member member = new Member("jaemin", "pw", Grade.User);
@@ -92,6 +105,25 @@ public class MemoryMemberRepoTest {
         Assertions.assertThat(foundMembers).hasSize(2);
         foundMembers = memberRepository.findByGrade(Grade.Administrator);
         Assertions.assertThat(foundMembers).hasSize(1);
+    }
+
+    @Test
+    public void deleteById() {
+        // given
+        Member member1 = new Member("jaemin", "pw1", Grade.User);
+        Member member2 = new Member("yoolmoo", "pw2", Grade.User);
+        Member member3 = new Member("heedong", "pw3", Grade.Administrator);
+
+        // when
+        memberRepository.save(member1);
+        memberRepository.save(member2);
+        memberRepository.save(member3);
+
+        // then
+        memberRepository.deleteById(member1.getId());
+        Assertions.assertThat(memberRepository.findAll()).hasSize(2);
+        memberRepository.deleteById(member2.getId());
+        Assertions.assertThat(memberRepository.findAll()).hasSize(1);
     }
 
 }
