@@ -6,6 +6,8 @@ import myboard.spring.service.MemberService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,6 +28,20 @@ public class MemberController {
         else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new Member().getId();
+        }
+    }
+
+    @GetMapping
+    public List<Member> findUsers(@RequestParam Integer pageNo,
+                                  HttpServletResponse resp) {
+        List<Member> foundMembers = memberService.findMembers(pageNo);
+        if (!foundMembers.isEmpty()) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            return foundMembers;
+        }
+        else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ArrayList<>();
         }
     }
 

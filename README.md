@@ -50,12 +50,16 @@
 * /member/new: 회원 가입과 관련된 정보를 의미함.
     * GET: 회원 가입 페이지를 열람함.
 ### API url
+* /api/article?id={page_no}: page_no 번째에 위치하는 게시글의 정보를 의미함.
+    * GET: 해당 번호의 페이지 수에 있는 게시글의 ID와 제목, 작성자, 작성 시간을 열람함.
 * /api/article: 게시글과 관련된 정보를 의미함.
     * POST: 새로운 게시글을 게시함. Request body에 글 제목 글 내용이 포함.
 * /api/article?id={article_no}: article_no ID의 게시글과 관련된 정보를 의미함.
     * GET: 해당 번호의 게시글을 열람함.
     * PUT: 해당 번호의 게시글을 갱신함. Request body에 글 제목 글 내용이 포함.
     * DELETE: 해당 번호의 게시글을 삭제함.
+* /api/member?id={page_no}: page_no 번째에 위치하는 회원들의 정보를 의미함.
+    * GET: 해당 번호의 페이지 수에 있는 회원들의 ID와 이름을 열람함.
 * /api/member: 회원과 관련된 정보를 의미함.
     * POST: 새로운 회원 정보를 게시함. Request body에 글 제목 글 내용이 포함.
 * /api/member?id={member_no}: member_no ID의 회원과 관련된 정보를 의미함.
