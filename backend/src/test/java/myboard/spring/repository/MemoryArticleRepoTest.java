@@ -38,6 +38,22 @@ public class MemoryArticleRepoTest {
     }
 
     @Test
+    public void existById() {
+        // given
+        Member writer = new Member("jaemin", "asdf", Grade.User);
+        Article article = new Article("hello", "my name is jaemin", writer, LocalDateTime.now());
+
+        // when
+        Article savedArticle = articleRepository.save(article);
+
+        // then
+        Boolean existOrNot = articleRepository.existsById(savedArticle.getId());
+        Assertions.assertThat(existOrNot).isTrue();
+        existOrNot = articleRepository.existsById(savedArticle.getId() + 1);
+        Assertions.assertThat(existOrNot).isFalse();
+    }
+
+    @Test
     public void findAll() {
         // given
         Member member1 = new Member("jaemin", "pw1", Grade.User);
@@ -59,7 +75,7 @@ public class MemoryArticleRepoTest {
 
     @Test
     public void findByPage() {
-        // TBD
+        // TODO: 작성 필요
         // given
 
         // when
@@ -155,6 +171,31 @@ public class MemoryArticleRepoTest {
         // then
         List<Article> foundArticles = articleRepository.findByWriter("jaemin");
         Assertions.assertThat(foundArticles).hasSize(1);
+    }
+
+    @Test
+    public void deleteById() {
+        // given
+        Member member1 = new Member("jaemin", "pw1", Grade.User);
+        Member member2 = new Member("yoolmoo", "pw2", Grade.User);
+        Member member3 = new Member("heedong", "pw3", Grade.Administrator);
+        Article article1 = new Article("hello", "my name is jaemin", member1, LocalDateTime.now());
+        Article article2 = new Article("hi", "my name is yoolmoo", member2, LocalDateTime.now());
+        Article article3 = new Article("hi hello", "my name is heedong", member3, LocalDateTime.now());
+
+        // when
+        articleRepository.save(article1);
+        articleRepository.save(article2);
+        articleRepository.save(article3);
+
+        // then
+        Assertions.assertThat(articleRepository.findAll()).hasSize(3);
+        articleRepository.deleteById(article1.getId());
+        Assertions.assertThat(articleRepository.findAll()).hasSize(2);
+        articleRepository.deleteById(article2.getId());
+        Assertions.assertThat(articleRepository.findAll()).hasSize(1);
+        articleRepository.deleteById(article3.getId());
+        Assertions.assertThat(articleRepository.findAll()).hasSize(0);
     }
 
 }

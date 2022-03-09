@@ -45,6 +45,8 @@ public class MemoryMemberRepoTest {
         // then
         Boolean existOrNot = memberRepository.existsById(savedMember.getId());
         Assertions.assertThat(existOrNot).isTrue();
+        existOrNot = memberRepository.existsById(savedMember.getId() + 1);
+        Assertions.assertThat(existOrNot).isFalse();
     }
 
     @Test
@@ -80,7 +82,7 @@ public class MemoryMemberRepoTest {
 
     @Test
     public void findByPage() {
-        // TBD
+        // TODO: 작성 필요
         // given
 
         // when
