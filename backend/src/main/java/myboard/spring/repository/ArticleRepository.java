@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface ArticleRepository {
 
     Article save(Article article);
+    boolean existsById(Long id);
     Optional<Article> findById(Long id);
     List<Article> findAll();
     List<Article> findByPage(Integer pageNo);
@@ -16,5 +17,6 @@ public interface ArticleRepository {
     List<Article> findByBody(String keyword);
     List<Article> findByTitleOrBody(String keyword);
     List<Article> findByWriter(String writerName);
+    void deleteById(Long id);
 
 }

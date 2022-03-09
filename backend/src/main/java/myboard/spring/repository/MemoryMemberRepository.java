@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Repository
 public class MemoryMemberRepository implements MemberRepository {
@@ -46,7 +45,8 @@ public class MemoryMemberRepository implements MemberRepository {
 
     @Override
     public List<Member> findByPage(Integer pageNo) {
-        return null;
+        // TODO: To be developed
+        return findAll();
     }
 
     @Override

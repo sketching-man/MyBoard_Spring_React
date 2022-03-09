@@ -14,9 +14,15 @@ public class MemoryArticleRepository implements ArticleRepository {
 
     @Override
     public Article save(Article article) {
-        article.setId(++memoryIndex);
+        if (!memoryStore.containsKey(article.getId()))
+            article.setId(++memoryIndex);
         memoryStore.put(article.getId(), article);
         return article;
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        return memoryStore.containsKey(id);
     }
 
     @Override
@@ -31,6 +37,7 @@ public class MemoryArticleRepository implements ArticleRepository {
 
     @Override
     public List<Article> findByPage(Integer pageNo) {
+        // TODO: To be developed
         return null;
     }
 
@@ -60,6 +67,11 @@ public class MemoryArticleRepository implements ArticleRepository {
         return memoryStore.values().stream()
                 .filter(article -> article.getWriter().getUserName().equals(writerName))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        memoryStore.remove(id);
     }
 
     public void clear() {
