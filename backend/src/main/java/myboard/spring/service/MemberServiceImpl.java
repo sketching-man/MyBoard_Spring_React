@@ -2,11 +2,14 @@ package myboard.spring.service;
 
 import lombok.RequiredArgsConstructor;
 import myboard.spring.domain.Member;
+import myboard.spring.domain.MemberSimple;
 import myboard.spring.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -20,12 +23,13 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public List<Member> findMembers(Integer pageNo) {
-        return memberRepository.findByPage(pageNo);
+    public List<MemberSimple> getMemberSimples(Integer pageNo) {
+        List<Member> memberList = memberRepository.findByPage(pageNo);
+        return memberList.stream().map(MemberSimple::new).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Member> findMember(Long id) {
+    public Optional<Member> getMember(Long id) {
         return memberRepository.findById(id);
     }
 
