@@ -2,6 +2,7 @@ package myboard.spring.controller;
 
 import lombok.RequiredArgsConstructor;
 import myboard.spring.domain.Member;
+import myboard.spring.domain.MemberSimple;
 import myboard.spring.service.MemberService;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,20 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @GetMapping(params = "pageNo")
+    public List<MemberSimple> findUsers(@RequestParam Integer pageNo,
+                                        HttpServletResponse resp) {
+        List<MemberSimple> foundMembers = memberService.getMemberSimples(pageNo);
+        if (!foundMembers.isEmpty()) {
+            resp.setStatus(HttpServletResponse.SC_OK);
+            return foundMembers;
+        }
+        else {
+            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return new ArrayList<>();
+        }
+    }
+
     @PostMapping
     public Long addNewUser(@RequestBody Member member,
                            HttpServletResponse resp) {
@@ -31,24 +46,10 @@ public class MemberController {
         }
     }
 
-    @GetMapping
-    public List<Member> findUsers(@RequestParam Integer pageNo,
-                                  HttpServletResponse resp) {
-        List<Member> foundMembers = memberService.findMembers(pageNo);
-        if (!foundMembers.isEmpty()) {
-            resp.setStatus(HttpServletResponse.SC_OK);
-            return foundMembers;
-        }
-        else {
-            resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            return new ArrayList<>();
-        }
-    }
-
-    @GetMapping
+    @GetMapping(params = "id")
     public Member findUser(@RequestParam Long id,
                            HttpServletResponse resp) {
-        Optional<Member> foundMember = memberService.findMember(id);
+        Optional<Member> foundMember = memberService.getMember(id);
         if (foundMember.isPresent()) {
             resp.setStatus(HttpServletResponse.SC_OK);
             return foundMember.get();
