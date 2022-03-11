@@ -38,7 +38,7 @@ public class MemoryArticleRepository implements ArticleRepository {
     @Override
     public List<Article> findByPage(Integer pageNo) {
         // TODO: To be developed
-        return null;
+        return findAll();
     }
 
     @Override
