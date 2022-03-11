@@ -2,23 +2,21 @@ package myboard.spring.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
-
 @Data
-@Entity
+//@Entity
 public class Member {
 
     private static final Long defaultId = -1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+//    @Column
     private String userName;
-    @Column
+//    @Column
     private String password;
-    @Column
+//    @Column
     private Grade grade;
 
     public Member() {

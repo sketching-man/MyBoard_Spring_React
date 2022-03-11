@@ -2,26 +2,25 @@ package myboard.spring.domain;
 
 import lombok.Data;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
-@Entity
+//@Entity
 public class Article {
 
     private static final Long defaultId = -1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+//    @Column
     private String title;
-    @Column
+//    @Column
     private String body;
-    @Column
+//    @Column
     private Member writer;
-    @Column
+//    @Column
     private LocalDateTime writtenTime;
 
     public Article() {
@@ -43,8 +42,6 @@ public class Article {
     public void update(Article article) {
         this.title = article.getTitle();
         this.body = article.getBody();
-        this.writer = article.getWriter();
-        this.writtenTime = article.getWrittenTime();
     }
 
 }
