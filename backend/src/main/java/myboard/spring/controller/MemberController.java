@@ -25,8 +25,7 @@ public class MemberController {
         if (!foundMembers.isEmpty()) {
             resp.setStatus(HttpServletResponse.SC_OK);
             return foundMembers;
-        }
-        else {
+        } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new ArrayList<>();
         }
@@ -36,11 +35,10 @@ public class MemberController {
     public Long addNewUser(@RequestBody Member member,
                            HttpServletResponse resp) {
         Long id = memberService.join(member);
-        if (id > 0L) {
+        if (0L <= id) {
             resp.setStatus(HttpServletResponse.SC_CREATED);
             return id;
-        }
-        else {
+        } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new Member().getId();
         }
@@ -53,8 +51,7 @@ public class MemberController {
         if (foundMember.isPresent()) {
             resp.setStatus(HttpServletResponse.SC_OK);
             return foundMember.get();
-        }
-        else {
+        } else {
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return new Member();
         }
