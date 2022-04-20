@@ -38,14 +38,22 @@ function App() {
 여러 부분을 분할 해서 코드의 재사용성과 유지보수성을 올릴 수 있음.\
 본 프로젝트의 상기 function App()을 봤을 때, 저런 식으로 만들어 둔 컴포넌트를 다른 여러 페이지나 또 다른 컴포넌트에서 활용이 가능함.\
 하나의 객체처럼 만들어 둔다고 이해해도 무방할 듯.\
-다만 최근의 JavaScript 환경에서 React는 class 형 component 사용보다는 function 형 component 식 사용을 더 권장한다.
+다만 최근의 JavaScript 환경에서 React는 class component 사용보다는 function component 식 사용을 더 권장한다.
 ### Class component vs Function component
+* 일반적 차이\
+클래스형 -\
+메모리 자원을 함수형 컴포넌트보다 조금 더 사용한다.\
+임의 메서드를 정의할 수 있다.\
+함수형 -\
+메모리 자원을 함수형 컴포넌트보다 덜 사용한다.\
+컴포넌트 선언이 편하다.
+* Class component 예시
 ``` 
 // Class Component
 import React, {Component} from 'react';
 
-class App extends Component {
-  render() {
+class App extends Component { // 'react'에서 import 받은 Component의 상속을 받는 class여야 함
+  render() { // 클래스 내 메서드 중 하나인 render()를 정의하면 page를 그릴 때 call 됨
     const name = 'react';
     return <div className="react">{name}</div>
   }
@@ -53,26 +61,90 @@ class App extends Component {
 
 export default App;
 ```
+* Function component
 ```
 // Function component
 import React from 'react';
 import './App.css';
 
-function App() {
+function App() { // class 선언 필요 없음. Component import 필요 없음.
   const name = 'react';
-  return <div className = "react">{name}</div>
+  return <div className = "react">{name}</div> // render() 메서드 선언 없이 함수 내용만 채우면 됨.
 }
 
 export default App;
 ```
-To Be Filled
+* State 사용에서 차이가 있음: State란? component 내부에서 사용하는 변수\
+* class 형의 경우, constructor 안에서 혹은 클래스 안 메서드 밖에서 this.state 초기 값 설정 가능.\
+이 때 state는 객체 형식이며, this.setState() 메서드로 state 수정 가능
+```
+constructor(props) {
+  super(props);
+  this.state = {
+    val1 = "asdf",
+  }
+}
+// 혹은
+class MyClass extends Component {
+  state = {
+    val1 = "asdf",
+  }
+}
+```
+```
+onClick = {
+  () => {
+    this.setState({val1 = "qwer"});
+  }
+}
+```
+* function 형의 경우, useState 메서드로 state 사용 가능.\
+ 이 함수를 호출해주면 배열이 반환되는데, 여기서 첫번째 원소는 현재 상태, 두번째 원소는 Setter 함수.
+```
+import React, { useState } from 'react';
 
+const [number, setNumber] = useState(0);
+const onIncrease = () => {
+    setNumber(number + 1);
+  }
+const onDecrease = () => {
+    setNumber(number - 1);
+  }
+```
+* props 사용에서 차이가 있음: props(properties의 줄임말)란? 상위 컴포넌트가 하위 컴포넌트에 값을 전달하는 매개체이며, 프로퍼티는 수정할 수 없음.
+* class 형의 경우, this.props로 사용.
+```
+class MyClass extends Component {
+  render {
+    const {val1, val2, val3} = this.props;
+    return (
+      <div>
+        val1 = {val1}, val2 = {val2}, val3 = {val3}
+      </div>
+    )
+  }
+}
+```
+* function 형의 경우, props.{요소이름} 식으로 사용하거나 이름 직접 선언 후 바로 사용 가능.
+```
+function MyFunction = ({val1, val2, val3}) => { // 혹은 {props} 로 가능
+  return (
+    <div>
+      val1 = {val1}, val2 = {val2}, val3 = {val3} // {props}로 불렀다면 props.val1
+    </div>
+  )
+}
+```
 
 ## Virtual DOM
 ### Dom이란?
+To Be Filled
+### Virtual DOM이란?
 To Be Filled
 
 # 참고한 링크
 https://berkbach.com/%EA%B8%B0%EC%B4%88%EB%B6%80%ED%84%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-react-js-1531b18f7bb2\
 https://devowen.com/298\
-https://velog.io/@sdc337dc/0.%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8
+https://velog.io/@sdc337dc/0.%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8\
+https://react.vlpt.us/basic/\
+https://goddaehee.tistory.com/300
