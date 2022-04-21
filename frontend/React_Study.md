@@ -137,10 +137,16 @@ function MyFunction = ({val1, val2, val3}) => { // 혹은 {props} 로 가능
 ```
 
 ## Virtual DOM
-### Dom이란?
-To Be Filled
+### DOM이란?
+![DOM트리](https://miro.medium.com/max/1400/1*Vvi4_infsE8Q0uAStZmiWw.png)
+DOM = Document Object Model, 문서 객체 모델임.\
+위 그림과 같이 트리 구조로 이루어져 있으며, 어떤 행동으로(JavaScript?) 페이지의 DOM이 수정될 때 전체 트리를 재생성함.\
+단, Single Page Application(SPA) 개발 시 이런 액션이 비효율적임.
 ### Virtual DOM이란?
-To Be Filled
+Virtual DOM은 실제 DOM과 다른, 미리 연산용 공간임.\
+DOM이 아니기 때문에 렌더링도 되지 않고 연산 비용이 비교적 실제 DOM 보다는 적음.\
+그 가상 DOM의 변화를 마지막에 실제 DOM에게 던져주어, 모든 변화를 한번에 렌더링.\
+바뀌지 않은 부분과 바뀐 부분을 자동으로 감지해서 DOM 문서를 선택적으로 업데이트하기 때문에 연산 오버헤드가 최소화.
 
 # 참고한 링크
 https://berkbach.com/%EA%B8%B0%EC%B4%88%EB%B6%80%ED%84%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-react-js-1531b18f7bb2\
