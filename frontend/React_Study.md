@@ -148,9 +148,113 @@ DOM이 아니기 때문에 렌더링도 되지 않고 연산 비용이 비교적
 그 가상 DOM의 변화를 마지막에 실제 DOM에게 던져주어, 모든 변화를 한번에 렌더링.\
 바뀌지 않은 부분과 바뀐 부분을 자동으로 감지해서 DOM 문서를 선택적으로 업데이트하기 때문에 연산 오버헤드가 최소화.
 
+# React 프로젝트 폴더 구조 설명
+* public: Virtual DOM 공간.\
+index.html: 가상 DOM이 들어가기 위한 빈 껍데기 html 파일.
+* src: 리액트 개발이 이루어지는 메인 폴더.\
+index.js: (초기 세팅 기준) App.js 에서 생성된 리액트 코드를 index.js에서 불러온 후, public에 있는 index.html 의 id가 root인 곳에다가 넣는 코드.
+App.js: (초기 세팅 기준) App이라는 function 형 component를 생성하여 JSX를 활용해 HTML 코드를 리턴하는 코드.
+
+# React Hook
+## Hook이란?
+React v16.8부터 도입되었으며, function 형 component에 사용됨.
+클래스형 컴포넌트의 기능을 사용할 수 있도록 해주는 기능.
+## Hook의 종류
+* useState\
+function 형 component에서 가변적인 상태(변수?)를 사용할 수 있게 만들어 줌.
+```
+import React, { useState } from 'react';
+
+function Example() {
+  // 새로운 state 변수를 선언하고, count라 부르겠습니다.
+  // count의 초깃값은 0으로 지정합니다.
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+* useEffect\
+React component가 렌더링 될 때마다 특정 작업을 수행하도록 설정
+```
+import React, { useState, useEffect } from 'react';
+
+function Example() {
+  const [count, setCount] = useState(0);
+
+  // componentDidMount, componentDidUpdate와 같은 방식으로
+  useEffect(() => {
+    // 브라우저 API를 이용하여 문서 타이틀을 업데이트합니다.
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
+    </div>
+  );
+}
+```
+* useReducer\
+useState보다 다양한 component 상황에 따라 다양한 상태를 다른 값으로 업데이트 해주고 싶을 때 사용
+```
+const initialState = {count: 0};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'increment':
+      return {count: state.count + 1};
+    case 'decrement':
+      return {count: state.count - 1};
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({type: 'decrement'})}>-</button>
+      <button onClick={() => dispatch({type: 'increment'})}>+</button>
+    </>
+  );
+}
+```
+* useMemo\
+useMemo를 사용하면 함수형 컴포넌트 내부에서 발생하는 연산을 최적화.\
+useMemo로 전달된 함수는 렌더링 중에 실행되기 때문에 렌더링 중에 하지 않는 작업은 이 함수 내에서 할 수 없음.\
+(예를 들어 사이드 이펙트에 대한 처리는 useEffect에서 해 주는 식)
+```
+const memoizedValue = useMemo(() => computeExpensiveValue(a, b), [a, b]);
+```
+* useCallback\
+useCallback은 메모이제이션 된 콜백을 반환. 이벤트 핸들러 함수를 필요할 때만 생성 가능.
+```
+const memoizedCallback = useCallback(
+  () => {
+    doSomething(a, b);
+  },
+  [a, b],
+);
+```
+* 숫자, 문자열, 객체 처럼 일반 값을 재사용하려면 useMemo를 사용하고, 함수를 재사용하려면 useCallback을 사용!
+
 # 참고한 링크
 https://berkbach.com/%EA%B8%B0%EC%B4%88%EB%B6%80%ED%84%B0-%EB%B0%B0%EC%9A%B0%EB%8A%94-react-js-1531b18f7bb2\
 https://devowen.com/298\
+https://devowen.com/312\
 https://velog.io/@sdc337dc/0.%ED%81%B4%EB%9E%98%EC%8A%A4%ED%98%95-%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8\
 https://react.vlpt.us/basic/\
-https://goddaehee.tistory.com/300
+https://goddaehee.tistory.com/300\
+https://devbirdfeet.tistory.com/52
