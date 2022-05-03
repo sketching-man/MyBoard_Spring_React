@@ -31,6 +31,11 @@ export function Memberlist_frame() {
         getMemberList(cur_page);
     }, []);
 
+    useEffect(() => {
+        // TODO: React ref에 tr 추가하는 법 확인 필요
+        // member_table_body.current.
+    }, member_list);
+
     return (
         <div className="memberlist_frame">
             <table className="table">
