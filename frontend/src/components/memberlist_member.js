@@ -1,15 +1,12 @@
 import { useEffect } from "react";
 
-export function Memberlist_member({member}) {
-
-    // props로 아래 내용 채우자
-
+export function MemberlistMember({member}) {
     return (
-        <div className="memberlist_member">
+        <div>
             <tr>
                 <td>{member.id}</td>
-                <td>{member.username}</td>
-                <td>{member.grade}</td>
+                <td>{member.name}</td>
+                <td>{member.website}</td>
             </tr>
         </div>
     );

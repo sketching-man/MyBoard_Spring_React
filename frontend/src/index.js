@@ -5,14 +5,14 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import App from './App.js';
-import { Memberlist_frame } from './components/memberlist_frame.js';
+import { MemberlistFrame } from './components/memberlist_frame.js';
 
 
 ReactDOM.render(
     <Router>
       <Routes>
         <Route path='/' element={<App />} />
-        <Route path='/members' element={<Memberlist_frame />} />
+        <Route path='/members' element={<MemberlistFrame />} />
       </Routes>
     </Router>,
   document.getElementById('root')

@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
+import { renderToString } from 'react-dom/server';
 
 import axios from "axios";
 
-import { Memberlist_member } from "./memberlist_member.js";
+import { MemberlistMember } from "./memberlist_member.js";
 
-export function Memberlist_frame() {
+export function MemberlistFrame() {
     
     const member_table_body = useRef()
 
@@ -12,19 +13,18 @@ export function Memberlist_frame() {
     const [member_list, setMemberList] = useState([]);
 
     function getMemberList() {
-        let url = "/api/member/" + cur_page;
-        let result = null;
+        // let url = "/api/member/" + cur_page;
+        let url = 'https://jsonplaceholder.typicode.com/users';
 
         // temporary code for test
-        result = [];
-        result.push({
-            'id': '',
-            'username': '',
-            'Grade': 'Administrator'
-        })
+        axios.get(url)
+            .then((res) => {
+                setMemberList([...res.data]);
+            })
+            .catch((e) => {
+                console.log(e)
+            });
         // temporary code for test
-
-        setMemberList(result);
     }
 
     useEffect(() => {
@@ -32,9 +32,22 @@ export function Memberlist_frame() {
     }, []);
 
     useEffect(() => {
-        // TODO: React ref에 tr 추가하는 법 확인 필요
-        // member_table_body.current.
-    }, member_list);
+        if (0 < member_list.length) {
+            let member_row = (
+                <tbody>
+                    {
+                        member_list.map((x) => {
+                            return (
+                                <MemberlistMember member={x} />
+                            )
+                        })
+                    }
+                </tbody>
+            );
+
+            member_table_body.current.outerHTML = renderToString(member_row);
+        }
+    }, [member_list]);
 
     return (
         <div className="memberlist_frame">
