@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import "./components.module.css";
 
 export function MemberlistMember({member}) {
     return (

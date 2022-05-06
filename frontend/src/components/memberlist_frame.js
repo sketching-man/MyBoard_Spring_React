@@ -3,6 +3,7 @@ import { renderToString } from 'react-dom/server';
 
 import axios from "axios";
 
+import "./components.module.css";
 import { MemberlistMember } from "./memberlist_member.js";
 
 export function MemberlistFrame() {
@@ -50,8 +51,8 @@ export function MemberlistFrame() {
     }, [member_list]);
 
     return (
-        <div className="memberlist_frame">
-            <table className="table">
+        <div>
+            <table>
                 <thead>
                 <tr>
                     <th>ID</th>
