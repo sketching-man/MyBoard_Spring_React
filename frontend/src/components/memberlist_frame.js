@@ -13,7 +13,7 @@ export function MemberlistFrame() {
     const [cur_page, setCurPage] = useState(1);
     const [member_list, setMemberList] = useState([]);
 
-    function getMemberList() {
+    function getMemberList(page_no) {
         // let url = "/api/member/" + cur_page;
         let url = 'https://jsonplaceholder.typicode.com/users';
 
@@ -23,18 +23,18 @@ export function MemberlistFrame() {
                 setMemberList([...res.data]);
             })
             .catch((e) => {
-                console.log(e)
+                console.log(e);
             });
         // temporary code for test
     }
 
     useEffect(() => {
         getMemberList(cur_page);
-    }, []);
+    }, [null, cur_page]);
 
     useEffect(() => {
         if (0 < member_list.length) {
-            let member_row = (
+            let member_tbody = (
                 <tbody>
                     {
                         member_list.map((x) => {
@@ -46,7 +46,7 @@ export function MemberlistFrame() {
                 </tbody>
             );
 
-            member_table_body.current.outerHTML = renderToString(member_row);
+            member_table_body.current.outerHTML = renderToString(member_tbody);
         }
     }, [member_list]);
 

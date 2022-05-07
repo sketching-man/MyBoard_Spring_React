@@ -1,6 +1,6 @@
 import "./components.module.css";
 
-export function MemberlistMember({member}) {
+export function MemberlistMember({ member }) {
     return (
         <div>
             <tr>
