@@ -1,6 +1,5 @@
 package myboard.spring.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import myboard.spring.domain.StoryListType;
@@ -8,6 +7,7 @@ import myboard.spring.repository.WebAPIRepository;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -16,12 +16,10 @@ public class HackerNewsLiveDataServiceImpl implements HackerNewsLiveDataService 
 
     private final WebAPIRepository repo;
 
-    private static final String baseUrl = "https://hacker-news.firebaseio.com/v0/";
-
     @Override
-    public Long getMaxItemId() throws JsonProcessingException {
-        String requestUrl = baseUrl + "maxitem.json?print=pretty";
-        var result = repo.request(HttpMethod.GET, requestUrl);
+    public Long getMaxItemId() throws IOException {
+        String requestPath = "maxitem.json?print=pretty";
+        var result = repo.request(HttpMethod.GET, requestPath);
 
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(result, Long.class);
