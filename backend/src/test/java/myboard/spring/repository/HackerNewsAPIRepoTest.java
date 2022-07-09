@@ -2,14 +2,11 @@ package myboard.spring.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import myboard.spring.domain.HackerNewsStory;
-import org.apache.tomcat.util.json.JSONParser;
-import org.apache.tomcat.util.json.ParseException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,7 +22,7 @@ public class HackerNewsAPIRepoTest {
     }
 
     @Test
-    public void getListData() throws IOException, ParseException {
+    public void getListData() throws IOException {
         String result = repo.request(HttpMethod.GET, "topstories.json");
 
         ObjectMapper mapper = new ObjectMapper();
