@@ -12,7 +12,7 @@ import java.util.List;
 
 public class HackerNewsAPIRepoTest {
 
-    HackerNewsAPIRepository repo = new HackerNewsAPIRepository();
+    WebAPIRepository repo = new HackerNewsAPIRepository();
 
     @Test
     public void getJustNumber() throws IOException {

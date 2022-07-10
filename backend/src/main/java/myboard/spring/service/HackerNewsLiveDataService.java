@@ -1,15 +1,17 @@
 package myboard.spring.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import myboard.spring.domain.StoryListType;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 public interface HackerNewsLiveDataService {
+
     Long getMaxItemId() throws IOException;
 
-    List<Long> getStoryList(StoryListType type);
+    List<Long> getStoryList(StoryListType type) throws IOException;
 
-    List<Long> getUpdates();
+    HashMap<String, List<Object>> getUpdates() throws IOException;
+
 }

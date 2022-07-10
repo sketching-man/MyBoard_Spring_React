@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -19,20 +20,58 @@ public class HackerNewsLiveDataServiceImpl implements HackerNewsLiveDataService 
     @Override
     public Long getMaxItemId() throws IOException {
         String requestPath = "maxitem.json?print=pretty";
-        var result = repo.request(HttpMethod.GET, requestPath);
+        String responseStr = repo.request(HttpMethod.GET, requestPath);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(result, Long.class);
+        return objectMapper.readValue(responseStr, Long.class);
     }
 
     @Override
-    public List<Long> getStoryList(StoryListType type) {
-        return null;
+    public List<Long> getStoryList(StoryListType type) throws IOException {
+        String requestPath = getStoryReqPath(type);
+        String responseStr = repo.request(HttpMethod.GET, requestPath);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(responseStr, List.class);
+    }
+
+    private String getStoryReqPath(StoryListType type) {
+        String result;
+
+        switch (type) {
+            case TOP:
+                result = "topstories.json?print=pretty";
+                break;
+            case NEW:
+                result = "newstories.json?print=pretty";
+                break;
+            case BEST:
+                result = "beststories.json?print=pretty";
+                break;
+            case ASK:
+                result = "askstories.json?print=pretty";
+                break;
+            case SHOW:
+                result = "showstories.json?print=pretty";
+                break;
+            case JOB:
+                result = "jobstories.json?print=pretty";
+                break;
+            default:
+                result = "";
+                break;
+        }
+
+        return result;
     }
 
     @Override
-    public List<Long> getUpdates() {
-        return null;
+    public HashMap<String, List<Object>> getUpdates() throws IOException {
+        String requestPath = "updates.json?print=pretty";
+        String responseStr = repo.request(HttpMethod.GET, requestPath);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(responseStr, HashMap.class);
     }
 
 }
