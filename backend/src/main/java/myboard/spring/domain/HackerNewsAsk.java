@@ -1,12 +1,14 @@
 package myboard.spring.domain;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
 @Getter @Setter
-public class HackerNewsAsk extends HackerNewsBase {
+@JsonTypeName("") //?
+public final class HackerNewsAsk extends HackerNewsBase {
 
     private Long descendants;
     private List<Long> kids;

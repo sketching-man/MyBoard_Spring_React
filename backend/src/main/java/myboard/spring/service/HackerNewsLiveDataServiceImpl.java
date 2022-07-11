@@ -23,7 +23,7 @@ public class HackerNewsLiveDataServiceImpl implements HackerNewsLiveDataService 
         String responseStr = repo.request(HttpMethod.GET, requestPath);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(responseStr, Long.class);
+        return objectMapper.readerFor(Long.class).readValue(responseStr);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class HackerNewsLiveDataServiceImpl implements HackerNewsLiveDataService 
         String responseStr = repo.request(HttpMethod.GET, requestPath);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(responseStr, List.class);
+        return objectMapper.readerFor(List.class).readValue(responseStr);
     }
 
     private String getStoryReqPath(StoryListType type) {
@@ -71,7 +71,7 @@ public class HackerNewsLiveDataServiceImpl implements HackerNewsLiveDataService 
         String responseStr = repo.request(HttpMethod.GET, requestPath);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(responseStr, HashMap.class);
+        return objectMapper.readerFor(HashMap.class).readValue(responseStr);
     }
 
 }
