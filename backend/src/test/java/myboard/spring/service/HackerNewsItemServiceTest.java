@@ -14,7 +14,7 @@ public class HackerNewsItemServiceTest {
 
     @Test
     public void getItem() throws IOException {
-        var result = svc.getItem(2921983L);
+        var result = svc.getItem(8863L);
         Assertions.assertThat(result).isInstanceOf(HackerNewsBase.class);
     }
 

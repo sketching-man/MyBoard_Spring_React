@@ -12,7 +12,6 @@ import lombok.Setter;
         visible = true
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = HackerNewsAsk.class, name = ""), //?
         @JsonSubTypes.Type(value = HackerNewsComment.class, name = "comment"),
         @JsonSubTypes.Type(value = HackerNewsJob.class, name = "job"),
         @JsonSubTypes.Type(value = HackerNewsPoll.class, name = "poll"),
