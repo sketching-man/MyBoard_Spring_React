@@ -8,7 +8,8 @@ import lombok.Setter;
 @Getter @Setter
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        property = "type"
+        property = "type",
+        visible = true
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = HackerNewsAsk.class, name = ""), //?
