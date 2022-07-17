@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Repository
+//@Repository
 public class MemoryMemberRepository implements MemberRepository {
 
     private static final Map<Long, Member> memoryStore = new HashMap<>();
@@ -59,6 +59,11 @@ public class MemoryMemberRepository implements MemberRepository {
     @Override
     public void deleteById(Long id) {
         memoryStore.remove(id);
+    }
+
+    @Override
+    public void deleteByName(String userName) {
+        findByUserName(userName).ifPresent(value -> memoryStore.remove(value.getId()));
     }
 
     public void clear() {

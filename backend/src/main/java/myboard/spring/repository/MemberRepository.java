@@ -16,5 +16,6 @@ public interface MemberRepository {
     List<Member> findByPage(Integer pageNo);
     List<Member> findByGrade(Grade grade);
     void deleteById(Long id);
+    void deleteByName(String userName);
 
 }
