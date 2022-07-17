@@ -1,11 +1,15 @@
 package myboard.spring.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@AllArgsConstructor
 @Entity
 public class Article {
 
@@ -19,7 +23,8 @@ public class Article {
     private String title;
     @Column
     private String body;
-    @Column
+    @ManyToOne
+    @JoinColumn(referencedColumnName = "id")
     private Member writer;
     @Column
     private LocalDateTime writtenTime;

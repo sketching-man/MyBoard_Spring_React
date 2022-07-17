@@ -1,10 +1,14 @@
 package myboard.spring.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Data
+@Builder
+@AllArgsConstructor
 @Entity
 public class Member {
 
