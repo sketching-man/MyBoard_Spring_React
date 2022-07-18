@@ -6,9 +6,13 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-@DataJpaTest
+@SpringBootTest
+@AutoConfigureTestEntityManager
+@Transactional
 public class JpaArticleRepoTest {
 
     @Autowired
@@ -23,7 +27,6 @@ public class JpaArticleRepoTest {
                 .password("pw")
                 .grade(Grade.Administrator)
                 .build();
-
         memberRepository.save(testMember);
     }
 
