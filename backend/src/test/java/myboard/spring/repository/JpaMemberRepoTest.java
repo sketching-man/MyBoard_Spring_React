@@ -181,8 +181,7 @@ public class JpaMemberRepoTest {
         var result = repo.findAll();
 
         // then
-        Assertions.assertThat(result).hasSize(1);
-        Assertions.assertThat(result.get(0)).isEqualTo(savedMember2);
+        Assertions.assertThat(result).hasSize(1).contains(savedMember2);
     }
 
     @Test
@@ -207,8 +206,7 @@ public class JpaMemberRepoTest {
         var result = repo.findAll();
 
         // then
-        Assertions.assertThat(result).hasSize(1);
-        Assertions.assertThat(result.get(0)).isEqualTo(savedMember2);
+        Assertions.assertThat(result).hasSize(1).contains(savedMember2);
     }
 
 }

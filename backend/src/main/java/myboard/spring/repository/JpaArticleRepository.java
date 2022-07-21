@@ -67,7 +67,8 @@ public class JpaArticleRepository implements ArticleRepository {
     public List<Article> findByTitleOrBody(String keyword) {
         // TODO: 순서대로 20개씩 잘라서 보여줘야 함. 순서는 작성 시간 기준
         String searchPattern = "%" + keyword + "%";
-        return em.createQuery("SELECT a FROM Article a WHERE a.body LIKE :searchPattern", Article.class)
+        return em.createQuery("SELECT a FROM Article a " +
+                        "WHERE a.title LIKE :searchPattern OR a.body LIKE :searchPattern", Article.class)
                 .setParameter("searchPattern", searchPattern)
                 .getResultList();
     }
