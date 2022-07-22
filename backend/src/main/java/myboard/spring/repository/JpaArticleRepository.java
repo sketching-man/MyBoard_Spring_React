@@ -3,6 +3,7 @@ package myboard.spring.repository;
 import lombok.RequiredArgsConstructor;
 import myboard.spring.domain.Article;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
@@ -11,13 +12,16 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class JpaArticleRepository implements ArticleRepository {
 
     private final EntityManager em;
 
     @Override
     public Article save(Article article) {
-        article.setWrittenTime(LocalDateTime.now());
+        if (null == article.getWrittenTime()) {
+            article.setWrittenTime(LocalDateTime.now());
+        }
         em.persist(article);
         return article;
     }

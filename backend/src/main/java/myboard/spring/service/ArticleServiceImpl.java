@@ -16,9 +16,15 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final MemberService memberService;
 
     @Override
     public Long write(Article article) {
+        if ((null == article.getWriter().getUserName() || article.getWriter().getUserName().isEmpty())
+                && null != article.getWriter().getId()) {
+            var writer = memberService.getMember(article.getWriter().getId());
+            writer.ifPresent(article::setWriter);
+        }
         return articleRepository.save(article).getId();
     }
 

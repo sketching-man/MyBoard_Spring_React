@@ -37,6 +37,14 @@ public class Article {
         this.writtenTime = LocalDateTime.now();
     }
 
+    public Article(String title, String body, Member writer) {
+        this.id = defaultId;
+        this.title = title;
+        this.body = body;
+        this.writer = writer;
+        this.writtenTime = LocalDateTime.now();
+    }
+
     public Article(String title, String body, Member writer, LocalDateTime writtenTime) {
         this.id = defaultId;
         this.title = title;

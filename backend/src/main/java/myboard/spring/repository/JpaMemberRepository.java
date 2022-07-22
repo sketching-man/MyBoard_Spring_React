@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import myboard.spring.domain.Grade;
 import myboard.spring.domain.Member;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class JpaMemberRepository implements MemberRepository {
 
     private final EntityManager em;
